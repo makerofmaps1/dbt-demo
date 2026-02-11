@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: sensor_data
+    tables:
+      - name: raw_sensor_readings
+        description: "Raw sensor readings exported from SQLite."
+      - name: raw_sensor_locations
+        description: "Raw sensor locations exported from SQLite."
+
+models:
+  - name: stg_sensor_readings
+    description: "Cleaned and typed sensor readings."
+    columns:
+      - name: reading_id
+        tests:
+          - not_null
+          - unique
+      - name: sensor_id
+        tests:
+          - not_null
+      - name: reading_timestamp
+        tests:
+          - not_null
+      - name: temperature_celsius
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -5
+              max_value: 40
+      - name: dissolved_oxygen_mg_per_liter
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 20
+      - name: ph_level
+        tests:
+          - not_null
+          - value_range:
+              min_value: 0
+              max_value: 14
+      - name: turbidity_ntu
+        tests:
+          - value_range:
+              min_value: 0
+              max_value: 5000
+
+  - name: stg_sensor_locations
+    description: "Cleaned and typed sensor locations."
+    columns:
+      - name: sensor_id
+        tests:
+          - not_null
+          - unique
+      - name: sensor_name
+        tests:
+          - not_null

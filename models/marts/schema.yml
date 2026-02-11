@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_sensors
+    description: "Sensor dimension."
+    columns:
+      - name: sensor_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_dates
+    description: "Date dimension derived from readings."
+    columns:
+      - name: date_day
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_sensor_readings
+    description: "Fact table of sensor readings with quality flags."
+    columns:
+      - name: reading_id
+        tests:
+          - not_null
+          - unique
+      - name: sensor_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_sensors')
+              field: sensor_id
+
+  - name: water_quality_daily_summary
+    description: "Daily rollup by sensor and river name."
+    columns:
+      - name: reading_date
+        tests:
+          - not_null
+      - name: sensor_id
+        tests:
+          - not_null
+
+  - name: water_quality_alerts
+    description: "Readings that exceed dissolved oxygen or turbidity thresholds."
+    columns:
+      - name: reading_id
+        tests:
+          - not_null
+          - unique

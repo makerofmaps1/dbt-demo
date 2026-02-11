@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_sensor_readings_enriched
+    description: "Sensor readings enriched with location metadata."
+    columns:
+      - name: reading_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_water_quality_flags
+    description: "Water quality status flags based on DO and turbidity thresholds."
+    columns:
+      - name: reading_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_sensor_daily_aggregates
+    description: "Daily aggregates by sensor."
+    columns:
+      - name: reading_date
+        tests:
+          - not_null
+      - name: sensor_id
+        tests:
+          - not_null
