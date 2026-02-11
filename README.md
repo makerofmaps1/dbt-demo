@@ -1,4 +1,4 @@
-# River Health Analytics Pipeline
+# Data build tool (dbt) Demo - River Health
 
 A dbt project that transforms raw IoT river sensor data into a dimensional model for water quality analysis.
 
