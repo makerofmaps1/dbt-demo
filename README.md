@@ -5,7 +5,7 @@ A dbt project that transforms raw IoT river sensor data into a dimensional model
 ## Evaluation (short)
 - Strong layered design (staging → intermediate → marts) and clear use of dbt best practices.
 - Data quality focus is appropriate for environmental monitoring.
-- The only gap was source alignment: your available data is SQLite, not CSV. This repo includes a repeatable export script that creates public-friendly CSVs and a PostgreSQL load script.
+- The only gap was source alignment: your available data is SQLite, not CSV. This repo includes the CSVs plus a PostgreSQL load script.
 
 ## Project layout
 ```
